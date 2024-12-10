@@ -60,19 +60,11 @@ class AddStudentForm(forms.Form):
     except:
         session_year_list = []
 
-    gender_list = (
-        ('Male', 'Male'),
-        ('Female', 'Female')
-    )
 
     course_id = forms.ChoiceField(label="Course", choices=course_list,
                                   widget=forms.Select(attrs={"class": "form-control"}))
-    gender = forms.ChoiceField(label="Gender", choices=gender_list,
-                               widget=forms.Select(attrs={"class": "form-control"}))
     session_year_id = forms.ChoiceField(label="Session Year", choices=session_year_list,
                                         widget=forms.Select(attrs={"class": "form-control"}))
-    profile_pic = forms.FileField(label="Profile Pic", required=False,
-                                  widget=forms.FileInput(attrs={"class": "form-control"}))
 
 
 class EditStudentForm(forms.Form):
@@ -106,16 +98,8 @@ class EditStudentForm(forms.Form):
     except:
         session_year_list = []
 
-    gender_list = (
-        ('Male', 'Male'),
-        ('Female', 'Female')
-    )
 
     course_id = forms.ChoiceField(label="Course", choices=course_list,
                                   widget=forms.Select(attrs={"class": "form-control"}))
-    gender = forms.ChoiceField(label="Gender", choices=gender_list,
-                               widget=forms.Select(attrs={"class": "form-control"}))
     session_year_id = forms.ChoiceField(label="Session Year", choices=session_year_list,
                                         widget=forms.Select(attrs={"class": "form-control"}))
-    profile_pic = forms.FileField(label="Profile Pic", required=False,
-                                  widget=forms.FileInput(attrs={"class": "form-control"}))

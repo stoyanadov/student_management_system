@@ -455,8 +455,7 @@ def add_student_save(request):
             course_id = form.cleaned_data['course_id']
 
             try:
-                user = CustomUser.objects.create_user(username=username, password=password, email=email,
-                                                      first_name=first_name, last_name=last_name, user_type=3)
+                user = CustomUser.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name, user_type=3)
                 user.students.address = address
 
                 course_obj = Courses.objects.get(id=course_id)
@@ -464,6 +463,7 @@ def add_student_save(request):
 
                 session_year_obj = SessionYearModel.objects.get(id=session_year_id)
                 user.students.session_year_id = session_year_obj
+
                 user.save()
                 messages.success(request, "Student Added Successfully!")
                 return redirect('add_student')
@@ -495,7 +495,6 @@ def edit_student(request, student_id):
     form.fields['last_name'].initial = student.admin.last_name
     form.fields['address'].initial = student.address
     form.fields['course_id'].initial = student.course_id.id
-    form.fields['gender'].initial = student.gender
     form.fields['session_year_id'].initial = student.session_year_id.id
 
     context = {
@@ -550,7 +549,7 @@ def edit_student_save(request):
                 messages.success(request, "Student Updated Successfully!")
                 return redirect('/edit_student/' + student_id)
             except:
-                messages.success(request, "Failed to Uupdate Student.")
+                messages.success(request, "Failed to Update Student.")
                 return redirect('/edit_student/' + student_id)
         else:
             return redirect('/edit_student/' + student_id)
