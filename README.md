@@ -25,3 +25,8 @@
 
 7. Run the server:
   python manage.py runserver
+
+8. You can test the project by logging in the superuser:
+username - admin
+email - admin@admin.admin
+password - admin
