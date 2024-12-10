@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <body class="hold-transition register-page">
+    <div class="register-box">
+        <div class="register-logo">
+            <a href="{% url 'register' %}"><b>Student</b> Management System</a>
+        </div>
+        <div class="card">
+            <div class="card-body register-card-body">
+                <p class="login-box-msg">Register a new account</p>
+
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- Username -->
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Username" name="username" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Email" name="email" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Password" name="password" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Confirm Password"
+                               name="confirm_password" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Type -->
+                    <div class="form-group">
+                        <label for="user_type">Select User Type</label>
+                        <select name="user_type" id="user_type" class="form-control" required>
+                            <option value="2">Staff</option>
+                            <option value="3">Student</option>
+                        </select>
+                    </div>
+
+                    <!-- Course Selection (for students only) -->
+                    <div class="form-group" id="course_section" style="display: none;">
+                        <label for="course_id">Select Course</label>
+                        <select name="course_id" id="course_id" class="form-control">
+                            <option value="" disabled selected>Select Course</option>
+                            {% for course in courses %}
+                                <option value="{{ course.id }}">{{ course.course_name }}</option>
+                            {% empty %}
+                                <option>No courses available</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Session Year Selection (for students only) -->
+                    <div class="form-group" id="session_year_section" style="display: none;">
+                        <label for="session_year_id">Select Session Year</label>
+                        <select name="session_year_id" id="session_year_id" class="form-control">
+                            <option value="" disabled selected>Select Session Year</option>
+                            {% for session in sessions %}
+                                <option value="{{ session.id }}">{{ session.session_start_year }}
+                                    - {{ session.session_end_year }}</option>
+                            {% empty %}
+                                <option>No session years available</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </div>
+
+                    <!-- Error Messages -->
+                    {% if messages %}
+                        <div class="col-12">
+                            {% for message in messages %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                                     style="margin-top: 10px;">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to show/hide course and session fields based on user type -->
+    <script>
+        document.getElementById('user_type').addEventListener('change', function () {
+            var userType = this.value;
+            var courseSection = document.getElementById('course_section');
+            var sessionYearSection = document.getElementById('session_year_section');
+
+            if (userType === '3') { // Student selected
+                courseSection.style.display = 'block';
+                sessionYearSection.style.display = 'block';
+            } else { // Staff selected
+                courseSection.style.display = 'none';
+                sessionYearSection.style.display = 'none';
+            }
+        });
+    </script>
+    </body>
+{% endblock %}
