@@ -54,12 +54,11 @@ class AddStudentForm(forms.Form):
         session_year_list = []
         for session_year in session_years:
             single_session_year = (
-            session_year.id, str(session_year.session_start_year) + " to " + str(session_year.session_end_year))
+                session_year.id, str(session_year.session_start_year) + " to " + str(session_year.session_end_year))
             session_year_list.append(single_session_year)
 
     except:
         session_year_list = []
-
 
     course_id = forms.ChoiceField(label="Course", choices=course_list,
                                   widget=forms.Select(attrs={"class": "form-control"}))
@@ -92,12 +91,11 @@ class EditStudentForm(forms.Form):
         session_year_list = []
         for session_year in session_years:
             single_session_year = (
-            session_year.id, str(session_year.session_start_year) + " to " + str(session_year.session_end_year))
+                session_year.id, str(session_year.session_start_year) + " to " + str(session_year.session_end_year))
             session_year_list.append(single_session_year)
 
     except:
         session_year_list = []
-
 
     course_id = forms.ChoiceField(label="Course", choices=course_list,
                                   widget=forms.Select(attrs={"class": "form-control"}))

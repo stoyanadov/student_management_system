@@ -3,7 +3,6 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 import json
-
 from main_app.models import CustomUser, Staffs, Courses, Subjects, Students, SessionYearModel, Attendance, \
     AttendanceReport, LeaveReportStaff, FeedBackStaffs, StudentResult
 

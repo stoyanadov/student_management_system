@@ -3,7 +3,6 @@ from django.contrib import messages
 import datetime
 from django.views import View
 from django.views.generic import TemplateView
-
 from main_app.models import CustomUser, Courses, Subjects, Students, Attendance, AttendanceReport, \
     LeaveReportStudent, FeedBackStudent, StudentResult
 

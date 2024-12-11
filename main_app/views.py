@@ -6,12 +6,10 @@ from django.contrib import messages
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 import json
-
 from django.views.generic import TemplateView, FormView, ListView
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from main_app.models import Staffs, Students, CustomUser, Courses, Subjects, SessionYearModel, FeedBackStudent, \
     FeedBackStaffs, LeaveReportStudent, LeaveReportStaff, Attendance, AttendanceReport
 from .forms import AddStudentForm, EditStudentForm, RegistrationForm
@@ -31,6 +29,7 @@ class StudentListCreateAPIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class LoginPageView(TemplateView):
     template_name = 'login.html'
@@ -113,6 +112,7 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect('/')
+
 
 class AdminHomeView(View):
     def get(self, request):
@@ -340,11 +340,11 @@ def edit_course_save(request):
             course.save()
 
             messages.success(request, "Course Updated Successfully.")
-            return redirect('/edit_course/'+course_id)
+            return redirect('/edit_course/' + course_id)
 
         except:
             messages.error(request, "Failed to Update Course.")
-            return redirect('/edit_course/'+course_id)
+            return redirect('/edit_course/' + course_id)
 
 
 def delete_course(request, course_id):
@@ -455,7 +455,8 @@ def add_student_save(request):
             course_id = form.cleaned_data['course_id']
 
             try:
-                user = CustomUser.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name, user_type=3)
+                user = CustomUser.objects.create_user(username=username, password=password, email=email,
+                                                      first_name=first_name, last_name=last_name, user_type=3)
                 user.students.address = address
 
                 course_obj = Courses.objects.get(id=course_id)
