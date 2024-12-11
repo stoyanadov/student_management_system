@@ -30,3 +30,5 @@
 username - admin
 email - admin@admin.admin
 password - admin
+
+The files .venv and .env are left intentionally just for the purpose of demonstration on how your project should look before deployment.
